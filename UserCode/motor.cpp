@@ -3,6 +3,7 @@
 //
 
 #include "motor.hpp"
+#include <math.h>
 motor::motor(Type_e type,float ratio,ControlMethod_e controlMethod,PID ppid,PID spid,uint8_t motor_id, float intensity_max):
     type_(type),ratio_(ratio),controlMethod_(controlMethod),ppid_(ppid),spid_(spid),
     motor_id_(motor_id),intensity_max_(intensity_max)
@@ -129,7 +130,9 @@ void motor::handle()
         {
             float speed_ref =ppid_.calc(target_angle_,fdb_angle)+feedforward_speed_;
             speed_ref =ppid_.limit(speed_ref, -ppid_.out_max_, ppid_.out_max_);
-            intensity_ =spid_.calc(speed_ref,fdb_speed)+feedforward_intensity_;
+            const float theta=(fdb_angle+gravity_zero_offset_deg_)*0.01745f;
+            const float gravity_ff=gravity_ff_max_*std::sin(theta);
+            intensity_ =spid_.calc(speed_ref,fdb_speed)+feedforward_intensity_+gravity_ff;
             break;
         }
     case SPEED:

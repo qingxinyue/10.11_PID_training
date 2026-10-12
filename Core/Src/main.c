@@ -103,7 +103,8 @@ int main(void)
   }
 
 	//motor_setIntensity(600);
-  motor_setPosition(30.0f);
+  motor_setPosition(50.0f);
+	//motor_setSpeed(0.0f);
   motor_setEnabled(1);
 
   if (HAL_TIM_Base_Start_IT(&htim6) != HAL_OK)

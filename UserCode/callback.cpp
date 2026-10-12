@@ -7,9 +7,9 @@
 #include "can.h"
 #include "Motor.hpp"
 volatile uint32_t stop_flag=0;
+PID ppid(80.0f, 0.0f, 0.2f, 0.0f, 200.0f, 0.1f);
+PID spid(50.0f, 0.0f, 0.2f,0.0f, 10000.0f, 0.1f);
 
-PID ppid(15.0f, 0.0f, 0.1f, 0.0f, 100.0f, 0.05f);
-PID spid(130.0f, 0.0f, 0.1f,0.0f, 10000.0f, 0.05f);
 motor motor_g(motor::M2006, 36.0f, motor::POSITION_SPEED, ppid, spid,4,10000.0f);
 
 void HAL_CAN_RxFifo0MsgPendingCallback(

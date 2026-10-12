@@ -73,7 +73,7 @@ private:
     static constexpr uint16_t kEncoderRange =8192;
 
     float gravity_zero_offset_deg_ = 0.0f;
-    float gravity_ff_max_ = 0.0f; 
+    float gravity_ff_max_ = 400.0f;
 };
 
 
